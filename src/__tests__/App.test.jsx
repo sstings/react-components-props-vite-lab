@@ -1,11 +1,21 @@
-import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
-import App from "../components/App";
+import { render, screen } from '@testing-library/react';
+import App from '../components/App';
 
-test("renders the correct child components", () => {
-  const { container } = render(<App />);
-  expect(container.querySelector(".App")).toBeInTheDocument();
-  expect(container.querySelector(".App header")).toBeInTheDocument();
-  expect(container.querySelector(".App aside")).toBeInTheDocument();
-  expect(container.querySelector(".App main")).toBeInTheDocument();
+test('renders blog header', () => {
+  render(<App />);
+  const headerElement = screen.getByText(/Underreacted/i);
+  expect(headerElement).toBeInTheDocument();
+});
+
+test('renders about section', () => {
+  render(<App />);
+  const aboutElement = screen.getByText(/A blog about learning React/i);
+  expect(aboutElement).toBeInTheDocument();
+});
+
+test('renders all blog posts', () => {
+  render(<App />);
+  expect(screen.getByText(/Components 101/i)).toBeInTheDocument();
+  expect(screen.getByText(/React Data Flow/i)).toBeInTheDocument();
+  expect(screen.getByText(/Function vs Class Components/i)).toBeInTheDocument();
 });
